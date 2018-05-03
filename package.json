@@ -1,0 +1,16 @@
+{
+  "name": "yelp-camp",
+  "version": "1.0.0",
+  "description": "Yelp like for camping",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Patrick Wong",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.9",
+    "express": "^4.16.3",
+    "request": "^2.85.0"
+  }
+}
