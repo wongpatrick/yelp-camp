@@ -2,20 +2,16 @@ var express = require("express"),
     app = express(),
     request = require("request"),
     bodyParser = require("body-parser"),
-    mongoose = require("mongoose");
+    mongoose = require("mongoose"),
+    Campground = require("./models/campground"),
+    seedDB = require("./seeds"),
+    Comment = require("./models/comment");
 
+seedDB();
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs")
 
-// SCHEMA SETUP
-var campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
-
-var Campground = mongoose.model("Campground", campgroundSchema);
 
 /*Campground.create(
     {   name: "Banff National Park", image:"https://www.nationalgeographic.com/content/dam/travel/2016-digital/best-of-the-world-banff/hammock-moraine-lake-banff-national-park.adapt.1900.1.jpg",
