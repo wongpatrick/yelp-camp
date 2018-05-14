@@ -3,9 +3,10 @@ var express = require("express"),
     request = require("request"),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
+    Comment = require("./models/comment"),
     Campground = require("./models/campground"),
-    seedDB = require("./seeds"),
-    Comment = require("./models/comment");
+    seedDB = require("./seeds");
+    
 
 seedDB();
 mongoose.connect("mongodb://localhost/yelp_camp");
@@ -13,18 +14,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs")
 
 
-/*Campground.create(
-    {   name: "Banff National Park", image:"https://www.nationalgeographic.com/content/dam/travel/2016-digital/best-of-the-world-banff/hammock-moraine-lake-banff-national-park.adapt.1900.1.jpg",
-        description: "Banff National Park is Canada's oldest national park and was established in 1885. Located in the Rocky Mountains, 110–180 kilometres west of Calgary in the province of Alberta."
-        
-    }, function(err, campground){
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("NEWLY CREATED CAMPGROUND: ");
-            console.log(campground);
-        }
-    })*/
+
 
 app.get("/", function(req,res){
     res.render("landing");
@@ -61,11 +51,12 @@ app.get("/campgrounds/new", function(req,res){
 
 // SHOW - shows more info about one campground
 app.get("/campgrounds/:id", function(req,res){
-    Campground.findById(req.params.id,function(err,foundCampground){
+    Campground.findById(req.params.id).populate("comments").exec(function(err,foundCampground){
        if (err) {
            console.log(err);
        } else {
-            res.render("show", {campground: foundCampground});
+           console.log(foundCampground);
+        res.render("show", {campground: foundCampground});
        }
     });
    
