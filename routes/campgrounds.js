@@ -42,7 +42,8 @@ router.get("/new", middleware.isLoggedIn, function(req,res){
 // SHOW - shows more info about one campground
 router.get("/:id", function(req,res){
     Campground.findById(req.params.id).populate("comments").exec(function(err,foundCampground){
-       if (err) {
+       if (err || !foundCampground) {
+           req.flash("error", "Sorry, that campground does not exist!")
             res.redirect("/campgrounds");
        } else {
             res.render("campgrounds/show", {campground: foundCampground});
@@ -51,14 +52,14 @@ router.get("/:id", function(req,res){
 });
 
 // EDIT CAMPGROUND ROUTE
-router.get("/:id/edit",middleware.checkCampgroundOwnership, function(req,res){
+router.get("/:id/edit",middleware.isLoggedIn, middleware.checkCampgroundOwnership, function(req,res){
     Campground.findById(req.params.id, function(err, foundCampground){
         res.render("campgrounds/edit", {campground: foundCampground});
     });
 });
 
 // UPDATE CAMPGROUND ROUTE
-router.put("/:id",middleware.checkCampgroundOwnership, function(req,res){
+router.put("/:id",middleware.isLoggedIn, middleware.checkCampgroundOwnership, function(req,res){
   Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
       if (err) {
           res.redirect("/campgrounds");
@@ -69,7 +70,7 @@ router.put("/:id",middleware.checkCampgroundOwnership, function(req,res){
 });
 
 // DESTROY CAMPGROUND ROUTE
-router.delete("/:id",middleware.checkCampgroundOwnership, function(req,res){
+router.delete("/:id",middleware.isLoggedIn, middleware.checkCampgroundOwnership, function(req,res){
     Campground.findByIdAndRemove(req.params.id, function(err){
         if (err) {
             res.redirect("/campgrounds");
