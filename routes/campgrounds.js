@@ -18,13 +18,14 @@ router.get("/", function(req,res){
 // Create POST Route
 router.post("/", middleware.isLoggedIn, function(req,res){
     var name = req.body.name;
+    var price = req.body.price;
     var image = req.body.image;
     var description = req.body.description;
     var author = {
         id: req.user._id,
         username:req.user.username
     };
-    var newCampground = {name: name, image: image, description: description, author: author};
+    var newCampground = {name: name, price: price, image: image, description: description, author: author};
     Campground.create(newCampground, function(err, newlyCreated){
         if (err) {
             console.log(err);
