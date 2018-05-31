@@ -26,7 +26,7 @@ router.get("/", function(req,res){
                 if (allCampgrounds.length < 1) {
                     noMatch = "No campgrounds match that query, please try again.";
                 }
-                return res.render("campgrounds/index", {campgrounds: allCampgrounds, "error":noMatch});
+                return res.render("campgrounds/index", {campgrounds: allCampgrounds, page: 'campgrounds', "error":noMatch});
             }
         });
     } else {
@@ -34,7 +34,7 @@ router.get("/", function(req,res){
             if (err) {
                 console.log(err);
             } else {
-                res.render("campgrounds/index", {campgrounds: allCampgrounds});
+                res.render("campgrounds/index", {campgrounds: allCampgrounds, page: 'campgrounds'});
             }
         });
     }
