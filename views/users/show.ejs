@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <h1><%= user.firstName + " " + user.lastName %></h1>
+            <img src="<%= user.avatar %>" alt="user profile image">
+            <div class="caption"><a href="mailto:<%= user.email %>"><%= user.email %></a></div>
+        </div>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis faucibus nunc nec lacus dapibus, non feugiat orci efficitur. Sed interdum elementum enim. Quisque diam quam, pretium at elit a, eleifend mollis leo. Cras mattis scelerisque ipsum commodo fringilla. Quisque posuere tincidunt nisi sit amet rutrum. Phasellus a ante sit amet velit tincidunt volutpat. Integer eget pellentesque risus. Nullam porta, augue consequat maximus sagittis, diam arcu varius est, nec volutpat diam purus dapibus magna. Suspendisse efficitur facilisis congue. Cras sit amet diam massa. Pellentesque quis aliquam purus. Mauris eu felis lectus.
+        Nunc ut massa eget nulla maximus eleifend vitae nec quam. Aliquam sodales sed metus at tempor. Praesent mi est, aliquam id diam in, dictum luctus leo. Ut vehicula pharetra molestie. Etiam tortor nisi, ullamcorper a tellus id, aliquam lacinia risus. Quisque non porta ipsum. Etiam dictum condimentum justo, scelerisque convallis neque tempor sed. Curabitur sit amet sapien quis ipsum eleifend eleifend ac ac odio. Sed faucibus lobortis eleifend. Mauris sed condimentum dolor, sit amet euismod mauris. Nullam sit amet tellus eu nulla feugiat egestas in eu velit. Nulla dictum enim libero, vel vehicula est aliquet non. In sapien metus, ullamcorper sed efficitur et, venenatis et velit. Proin quis nisi cursus, varius dui eu, condimentum tellus. Nunc suscipit lectus quis laoreet fringilla. Vivamus felis purus, porttitor eu feugiat non, sagittis quis turpis.
+    
+    </div>
+    <div class="col-md-8">
+        <h3><%= user.username %>'s campgrounds:</h3>
+        <ul>
+        <% campgrounds.forEach(function(campground) { %>
+            <li><a href="/campgrounds/<%= campground.id %>"><%= campground.name %></a>
+            </li>
+        <% }) %>
+        </ul>
+    </div>
+</div>
+
+<% include ../partials/footer %>
